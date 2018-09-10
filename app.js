@@ -21,7 +21,7 @@ const strategy = new Auth0Strategy(
  }
 );
 
-// PP can now use our strategy object/ has access to our object:
+// PP can now use our strategy object/ has access to our object: (Tell Auth0 to use passport):
 passport.use(strategy);
 
 // use session to serialize the user to session: 'done' is our cb fn, it takes in user n session:
@@ -52,3 +52,25 @@ app.use(
     })
 );
 
+
+// Tell express js to use passport:
+app.use(passport.initialize());
+
+// this makes our app smart enough to know when one is logged in & wont have to loggin every time:
+app.use(passport.session());
+
+// After re-freshing this is how we check if your still logged in or not: - we use a function:
+// True or False Boolean and the info comes from the server:
+app.use(function (req, res, next) {
+   res.locals.loggedIn = false;
+   if (req.session.passport && typeof req.session.passport.user != 'undefined') {
+    res.locals.loggedIn = true;
+   }
+
+   // this is the next page the app should redirect to:
+   next();
+});
+
+app.listen(3000, function() {
+   console.log("Server is listening on port 3000!");
+});
