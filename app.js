@@ -5,7 +5,6 @@ const session = require('express-session');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 
-
 const myVars = {
  domain: 'rasjoh.auth0.com',
     clientID: 'zLu7syUlGJAHVuu1QPysoCuIX762c08X',
@@ -28,6 +27,7 @@ const strategy = new Auth0Strategy(
     return done(null, profile);
  }
 );
+
 
 // PP can now use our strategy object/ has access to our object: (Tell Auth0 to use passport):
 passport.use(strategy);
@@ -109,6 +109,17 @@ app.get('/callback',
         res.redirect('/user');
  });
 
+ app.get('/user', function(req, res, next) {
+     res.render('user', {
+         user: req.user
+     })
+ });
+
+ app.get('.failure', function(req, res, next) {
+     res.render('failure');
+ });
+
+ 
 app.listen(3000, function() {
    console.log("Server is listening on port 3000!");
 });
