@@ -6,6 +6,14 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 
 
+const myVars = {
+ domain: 'rasjoh.auth0.com',
+    clientID: 'zLu7syUlGJAHVuu1QPysoCuIX762c08X',
+    clientSecret: 'RrWqeSv8TN572sQEMBggon5RRdN6wWKKmBukb-HYbSaHhlcyNoIODqGAZthy75NR',
+    callbackURL: 'http://localhost:3000/callback'
+};
+
+
 // auth strategy takes in an obj n callback fn:
 // once you successfuly login the callback fn gets serialized into our session - can keep track on who is logged in and who isnt:
 // Thu this callback fn we are able to access the profile pic, nick-name - e.t.c from their google account:
@@ -74,6 +82,19 @@ app.use(function (req, res, next) {
 app.get('/', function(req, res, next) {
     res.render('index');
 });
+
+// app login endpoint:
+app.get('/login', passport.authenticate('auth0', {
+    clientID: myVars.clientID,
+    domain: myVars.domain,
+    redirectUri: myVars.callbackURL,
+    resposeType: 'code',
+    audience: 'https://noobmedia.auth0.com/userInfo',
+    scope: 'openid profile',
+    function(req, res) {
+       res.redirect('/')
+    }
+}));
 
 app.listen(3000, function() {
    console.log("Server is listening on port 3000!");
