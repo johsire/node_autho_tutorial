@@ -1,0 +1,19 @@
+{
+  "name": "node_auth",
+  "version": "1.0.0",
+  "description": "Ras Joh's Node Js Tutorial",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ras Joh",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "passport": "^0.4.0",
+    "passport-auth0": "^1.0.0",
+    "pug": "^2.0.3"
+  }
+}
