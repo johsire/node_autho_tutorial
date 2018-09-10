@@ -71,6 +71,10 @@ app.use(function (req, res, next) {
    next();
 });
 
+app.get('/', function(req, res, next) {
+    res.render('index');
+});
+
 app.listen(3000, function() {
    console.log("Server is listening on port 3000!");
 });
