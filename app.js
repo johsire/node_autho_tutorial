@@ -96,6 +96,19 @@ app.get('/login', passport.authenticate('auth0', {
     }
 }));
 
+app.get('/logout', function(req, res) {
+    res.logout();
+    res.redirect('/');
+});
+
+app.get('/callback',
+    passport.authenticate('auth0', {
+        failureRedirect: '/failure'
+    }),
+    function(req, res) {
+        res.redirect('/user');
+ });
+
 app.listen(3000, function() {
    console.log("Server is listening on port 3000!");
 });
