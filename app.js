@@ -21,14 +21,34 @@ const strategy = new Auth0Strategy(
  }
 );
 
+// PP can now use our strategy object/ has access to our object:
 passport.use(strategy);
 
-// use session to serialize the user:
+// use session to serialize the user to session: 'done' is our cb fn, it takes in user n session:
 passport.serializeUser(function(user, done) {
    done(null, user);
 });
 
-// use session to de-serialize the user:
+// use session to de-serialize the user from session:
 passport.deserializeUser(function(user, done) {
    done(null, user);
-})
+});
+
+const app = express();
+
+// set/define our path:
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+app.use(bodyParse.json());
+app.use(bodyParse.urlencoded({ extended: false }))
+
+// intialize session
+app.use(
+    session({
+        secret: 'jaesfj3934009-fdopj-023rkjlsfds',
+        resave: true,
+        saveUninitialized: true
+    })
+);
+
