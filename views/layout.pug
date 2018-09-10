@@ -5,9 +5,18 @@ html
         link(rel='stlesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css')
         script(src="https://cdn.auth0.com/js/auth0/8.7/auth0.min.js")
     body
-        nav.container.navbar.navbar-expanded-lg.navbar-light.bg-light
+        nav.container.navbar.navbar-expand-lg.navbar-light.bg-light
           a.navbar-brand Ras Joh
            div.collapse.navbar-collapse
               ul.navbar-nav
                   li.nav-item
-                       a(href="/").nav-link Home    
+                       a(href="/").nav-link Home
+                  if loggedIn
+                      li.nav-item
+                            a(href="/user").nav-link Profile
+                      li.nav-item
+                            a(href="/logout").nav-link Log Out
+                  else
+                      li.nav-item
+                             a(href="/login").nav-link Log In         
+    block content
